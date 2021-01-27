@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2214738893526065181}
-  - component: {fileID: 6798236283089428316}
+  - component: {fileID: 7769106910064300092}
   m_Layer: 0
   m_Name: KeyboardControlSensor
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6798236283089428316
+--- !u!114 &7769106910064300092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +40,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4296914713228803895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f5ce1c73b62434eba27b02d9f36f6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 42ad9c1040e30b04f850672ccb45276b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
   Topic: 
   Frame: 
+  ParentTransform: {fileID: 0}
+  MaxSteer: 0
+  MaxAccel: 0
+  MaxBrake: 0
