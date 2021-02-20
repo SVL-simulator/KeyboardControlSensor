@@ -177,6 +177,7 @@ namespace Simulator.Sensors
                 MaxSteer = Mathf.Max(Mathf.Abs(SteerInput), MaxSteer);
                 AccelInput = keyboardInput.y;
                 MaxAccel = Mathf.Max(Mathf.Abs(AccelInput), MaxAccel);
+                MaxBrake = Mathf.Min(AccelInput, MaxBrake);
             }
         }
 
