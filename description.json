@@ -1,7 +1,7 @@
 {
   "name": "Keyboard Control Sensor",
   "accessType": "public",
-  "description": "Sensor to control EGO vehicle using keyboard in the simulator.",
+  "description": "This sensor is required for a vehicle to accept keyboard control commands. Parameters are not required.\nSee {{DOCS_HOST}}/docs/python-api/#keyboard-control for more details.",
   "licenseName": "LG Content",
   "copyright": "LG Electronics Inc.",
   "tags": [
