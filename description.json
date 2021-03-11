@@ -2,7 +2,7 @@
   "id": "a2ff904a-ff06-4f06-9e45-cb58217a7142",
   "name": "Keyboard Control Sensor",
   "accessType": "public",
-  "description": "This sensor is required for a vehicle to accept keyboard control commands. Parameters are not required.\nSee {{DOCS_HOST}}/docs/python-api/#keyboard-control for more details.",
+  "description": "This sensor is required for a vehicle to accept keyboard control commands. Parameters are not required.\nSee {{DOCS_HOST}}/docs/simulation-content/sensors-list/#keyboard-control for more details.",
   "licenseName": "LG Content",
   "copyright": "LG Electronics Inc.",
   "tags": [
