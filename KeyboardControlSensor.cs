@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-2020 LG Electronics, Inc.
+ * Copyright (c) 2019-2021 LG Electronics, Inc.
  *
  * This software contains code licensed as described in LICENSE.
  *
@@ -22,11 +22,11 @@ namespace Simulator.Sensors
         public float AccelInput { get; private set; } = 0f;
         public float BrakeInput { get; private set; } = 0f;
 
-        private SimulatorControls controls;
-        private IVehicleDynamics dynamics;
-        private VehicleActions actions;
-        private Vector2 keyboardInput = Vector2.zero;
-        private AgentController AgentController;
+        private SimulatorControls Controls;
+        private IVehicleDynamics Dynamics;
+        private VehicleActions Actions;
+        private Vector2 Input = Vector2.zero;
+        private IAgentController Controller;
 
         [AnalysisMeasurement(MeasurementType.Input)]
         public float MaxSteer = 0f;
@@ -50,15 +50,15 @@ namespace Simulator.Sensors
             if (isInitialized)
                 return;
             
-            AgentController = GetComponentInParent<AgentController>();
-            dynamics = GetComponentInParent<IVehicleDynamics>();
-            actions = GetComponentInParent<VehicleActions>();
+            Controller = GetComponentInParent<IAgentController>();
+            Dynamics = GetComponentInParent<IVehicleDynamics>();
+            Actions = GetComponentInParent<VehicleActions>();
 
-            Debug.Assert(dynamics != null);
-            Debug.Assert(actions != null);
+            Debug.Assert(Dynamics != null);
+            Debug.Assert(Actions != null);
             Debug.Assert(SimulatorManager.Instance != null);
 
-            controls = SimulatorManager.Instance.controls;
+            Controls = SimulatorManager.Instance.controls;
 
             if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Linux && Application.isEditor)
             {
@@ -66,19 +66,19 @@ namespace Simulator.Sensors
             }
             else
             {
-                controls.VehicleKeyboard.Direction.started += DirectionStarted;
-                controls.VehicleKeyboard.Direction.performed += DirectionPerformed;
-                controls.VehicleKeyboard.Direction.canceled += DirectionCanceled;
-                controls.VehicleKeyboard.ShiftFirst.performed += ShiftFirstPerformed;
-                controls.VehicleKeyboard.ShiftReverse.performed += ShiftReversePerformed;
-                controls.VehicleKeyboard.ParkingBrake.performed += ParkingBrakePerformed;
-                controls.VehicleKeyboard.Ignition.performed += IgnitionPerformed;
-                controls.VehicleKeyboard.HeadLights.performed += HeadLightsPerformed;
-                controls.VehicleKeyboard.IndicatorLeft.performed += IndicatorLeftPerformed;
-                controls.VehicleKeyboard.IndicatorRight.performed += IndicatorRightPerformed;
-                controls.VehicleKeyboard.IndicatorHazard.performed += IndicatorHazardPerformed;
-                controls.VehicleKeyboard.FogLights.performed += FogLightsPerformed;
-                controls.VehicleKeyboard.InteriorLight.performed += InteriorLightPerformed;
+                Controls.VehicleKeyboard.Direction.started += DirectionStarted;
+                Controls.VehicleKeyboard.Direction.performed += DirectionPerformed;
+                Controls.VehicleKeyboard.Direction.canceled += DirectionCanceled;
+                Controls.VehicleKeyboard.ShiftFirst.performed += ShiftFirstPerformed;
+                Controls.VehicleKeyboard.ShiftReverse.performed += ShiftReversePerformed;
+                Controls.VehicleKeyboard.ParkingBrake.performed += ParkingBrakePerformed;
+                Controls.VehicleKeyboard.Ignition.performed += IgnitionPerformed;
+                Controls.VehicleKeyboard.HeadLights.performed += HeadLightsPerformed;
+                Controls.VehicleKeyboard.IndicatorLeft.performed += IndicatorLeftPerformed;
+                Controls.VehicleKeyboard.IndicatorRight.performed += IndicatorRightPerformed;
+                Controls.VehicleKeyboard.IndicatorHazard.performed += IndicatorHazardPerformed;
+                Controls.VehicleKeyboard.FogLights.performed += FogLightsPerformed;
+                Controls.VehicleKeyboard.InteriorLight.performed += InteriorLightPerformed;
             }
             isInitialized = true;
         }
@@ -94,98 +94,98 @@ namespace Simulator.Sensors
             }
             else
             {
-                controls.VehicleKeyboard.Direction.started -= DirectionStarted;
-                controls.VehicleKeyboard.Direction.performed -= DirectionPerformed;
-                controls.VehicleKeyboard.Direction.canceled -= DirectionCanceled;
-                controls.VehicleKeyboard.ShiftFirst.performed -= ShiftFirstPerformed;
-                controls.VehicleKeyboard.ShiftReverse.performed -= ShiftReversePerformed;
-                controls.VehicleKeyboard.ParkingBrake.performed -= ParkingBrakePerformed;
-                controls.VehicleKeyboard.Ignition.performed -= IgnitionPerformed;
-                controls.VehicleKeyboard.HeadLights.performed -= HeadLightsPerformed;
-                controls.VehicleKeyboard.IndicatorLeft.performed -= IndicatorLeftPerformed;
-                controls.VehicleKeyboard.IndicatorRight.performed -= IndicatorRightPerformed;
-                controls.VehicleKeyboard.IndicatorHazard.performed -= IndicatorHazardPerformed;
-                controls.VehicleKeyboard.FogLights.performed -= FogLightsPerformed;
-                controls.VehicleKeyboard.InteriorLight.performed -= InteriorLightPerformed;
+                Controls.VehicleKeyboard.Direction.started -= DirectionStarted;
+                Controls.VehicleKeyboard.Direction.performed -= DirectionPerformed;
+                Controls.VehicleKeyboard.Direction.canceled -= DirectionCanceled;
+                Controls.VehicleKeyboard.ShiftFirst.performed -= ShiftFirstPerformed;
+                Controls.VehicleKeyboard.ShiftReverse.performed -= ShiftReversePerformed;
+                Controls.VehicleKeyboard.ParkingBrake.performed -= ParkingBrakePerformed;
+                Controls.VehicleKeyboard.Ignition.performed -= IgnitionPerformed;
+                Controls.VehicleKeyboard.HeadLights.performed -= HeadLightsPerformed;
+                Controls.VehicleKeyboard.IndicatorLeft.performed -= IndicatorLeftPerformed;
+                Controls.VehicleKeyboard.IndicatorRight.performed -= IndicatorRightPerformed;
+                Controls.VehicleKeyboard.IndicatorHazard.performed -= IndicatorHazardPerformed;
+                Controls.VehicleKeyboard.FogLights.performed -= FogLightsPerformed;
+                Controls.VehicleKeyboard.InteriorLight.performed -= InteriorLightPerformed;
             }
             isInitialized = false;
         }
 
         private void DirectionStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            keyboardInput = obj.ReadValue<Vector2>();
+            Input = obj.ReadValue<Vector2>();
         }
 
         private void DirectionPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            keyboardInput = obj.ReadValue<Vector2>();
+            Input = obj.ReadValue<Vector2>();
         }
 
         private void DirectionCanceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            keyboardInput = Vector2.zero;
+            Input = Vector2.zero;
         }
 
         private void ShiftFirstPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            if (!AgentController.Active)
+            if (!Controller.Active)
                 return;
 
-            dynamics.ShiftFirstGear();
+            Dynamics.ShiftFirstGear();
         }
 
         private void ShiftReversePerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            if (!AgentController.Active)
+            if (!Controller.Active)
                 return;
 
-            dynamics.ShiftReverse();
+            Dynamics.ShiftReverse();
         }
 
         private void ParkingBrakePerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            if (!AgentController.Active)
+            if (!Controller.Active)
                 return;
 
-            dynamics.ToggleHandBrake();
+            Dynamics.ToggleHandBrake();
         }
 
         private void IgnitionPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            if (!AgentController.Active)
+            if (!Controller.Active)
                 return;
 
-            dynamics.ToggleIgnition();
+            Dynamics.ToggleIgnition();
         }
 
         private void HeadLightsPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.IncrementHeadLightState();
+            Actions.IncrementHeadLightState();
         }
 
         private void IndicatorLeftPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.LeftTurnSignal = !actions.LeftTurnSignal;
+            Actions.LeftTurnSignal = !Actions.LeftTurnSignal;
         }
 
         private void IndicatorRightPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.RightTurnSignal = !actions.RightTurnSignal;
+            Actions.RightTurnSignal = !Actions.RightTurnSignal;
         }
 
         private void IndicatorHazardPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.HazardLights = !actions.HazardLights;
+            Actions.HazardLights = !Actions.HazardLights;
         }
 
         private void FogLightsPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.FogLights = !actions.FogLights;
+            Actions.FogLights = !Actions.FogLights;
         }
 
         private void InteriorLightPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            actions.InteriorLight = !actions.InteriorLight;
+            Actions.InteriorLight = !Actions.InteriorLight;
         }
 
         private void Update()
@@ -195,30 +195,30 @@ namespace Simulator.Sensors
                 // this is a temporary workaround for Unity Editor on Linux
                 // see https://issuetracker.unity3d.com/issues/linux-editor-keyboard-when-input-handling-is-set-to-both-keyboard-input-stops-working
 
-                keyboardInput = Vector2.zero;
-                if (Input.GetKey(KeyCode.LeftArrow)) keyboardInput.x -= 1;
-                if (Input.GetKey(KeyCode.RightArrow)) keyboardInput.x += 1;
-                if (Input.GetKey(KeyCode.UpArrow)) keyboardInput.y += 1;
-                if (Input.GetKey(KeyCode.DownArrow)) keyboardInput.y -= 1;
+                Input = Vector2.zero;
+                if (UnityEngine.Input.GetKey(KeyCode.LeftArrow)) Input.x -= 1;
+                if (UnityEngine.Input.GetKey(KeyCode.RightArrow)) Input.x += 1;
+                if (UnityEngine.Input.GetKey(KeyCode.UpArrow)) Input.y += 1;
+                if (UnityEngine.Input.GetKey(KeyCode.DownArrow)) Input.y -= 1;
 
                 var ctx = new UnityEngine.InputSystem.InputAction.CallbackContext();
-                if (Input.GetKeyDown(KeyCode.H)) HeadLightsPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.Comma)) IndicatorLeftPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.Period)) IndicatorRightPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.M)) IndicatorHazardPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.F)) FogLightsPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.PageUp)) ShiftFirstPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.PageDown)) ShiftReversePerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.RightShift)) ParkingBrakePerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.End)) IgnitionPerformed(ctx);
-                if (Input.GetKeyDown(KeyCode.I)) InteriorLightPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.H)) HeadLightsPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Comma)) IndicatorLeftPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Period)) IndicatorRightPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.M)) IndicatorHazardPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.F)) FogLightsPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.PageUp)) ShiftFirstPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.PageDown)) ShiftReversePerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.RightShift)) ParkingBrakePerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.End)) IgnitionPerformed(ctx);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.I)) InteriorLightPerformed(ctx);
             }
 
-            if (AgentController.Active)
+            if (Controller.Active)
             {
-                SteerInput = Mathf.MoveTowards(SteerInput, keyboardInput.x, Time.deltaTime);
+                SteerInput = Mathf.MoveTowards(SteerInput, Input.x, Time.deltaTime);
                 MaxSteer = Mathf.Max(Mathf.Abs(SteerInput), MaxSteer);
-                AccelInput = keyboardInput.y;
+                AccelInput = Input.y;
                 MaxAccel = Mathf.Max(Mathf.Abs(AccelInput), MaxAccel);
                 MaxBrake = Mathf.Min(AccelInput, MaxBrake);
             }
@@ -236,13 +236,13 @@ namespace Simulator.Sensors
             {
                 {"Accel", AccelInput},
                 {"Steer", SteerInput},
-                {"Speed", dynamics.RB.velocity.magnitude},
-                {"Hand Brake", dynamics.HandBrake},
-                {"Ignition", dynamics.CurrentIgnitionStatus},
-                {"Reverse", dynamics.Reverse},
-                {"Gear", dynamics.CurrentGear},
-                {"RPM", dynamics.CurrentRPM},
-                {"Velocity", dynamics.RB.velocity}
+                {"Speed", Dynamics.Velocity.magnitude},
+                {"Hand Brake", Dynamics.HandBrake},
+                {"Ignition", Dynamics.CurrentIgnitionStatus},
+                {"Reverse", Dynamics.Reverse},
+                {"Gear", Dynamics.CurrentGear},
+                {"RPM", Dynamics.CurrentRPM},
+                {"Velocity", Dynamics.Velocity}
             };
             visualizer.UpdateGraphValues(graphData);
         }
