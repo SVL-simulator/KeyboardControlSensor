@@ -16,8 +16,6 @@ namespace Simulator.Sensors
     [SensorType("Keyboard Control", new System.Type[] { })]
     public class KeyboardControlSensor : SensorBase, IVehicleInputs
     {
-        private bool isInitialized;
-        
         public float SteerInput { get; private set; } = 0f;
         public float AccelInput { get; private set; } = 0f;
         public float BrakeInput { get; private set; } = 0f;
@@ -35,21 +33,8 @@ namespace Simulator.Sensors
         [AnalysisMeasurement(MeasurementType.Input)]
         public float MaxBrake = 0f;
 
-        private void Start()
+        protected override void Initialize()
         {
-            Initialize();
-        }
-
-        private void OnDestroy()
-        {
-            Deinitialize();
-        }
-
-        private void Initialize()
-        {
-            if (isInitialized)
-                return;
-            
             Controller = GetComponentInParent<IAgentController>();
             Dynamics = GetComponentInParent<IVehicleDynamics>();
             Actions = GetComponentInParent<VehicleActions>();
@@ -80,14 +65,10 @@ namespace Simulator.Sensors
                 Controls.VehicleKeyboard.FogLights.performed += FogLightsPerformed;
                 Controls.VehicleKeyboard.InteriorLight.performed += InteriorLightPerformed;
             }
-            isInitialized = true;
         }
 
-        private void Deinitialize()
+        protected override void Deinitialize()
         {
-            if (!isInitialized)
-                return;
-            
             if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Linux && Application.isEditor)
             {
                 // empty
@@ -108,7 +89,6 @@ namespace Simulator.Sensors
                 Controls.VehicleKeyboard.FogLights.performed -= FogLightsPerformed;
                 Controls.VehicleKeyboard.InteriorLight.performed -= InteriorLightPerformed;
             }
-            isInitialized = false;
         }
 
         private void DirectionStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
