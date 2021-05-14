@@ -40,7 +40,6 @@ namespace Simulator.Sensors
             Actions = GetComponentInParent<VehicleActions>();
 
             Debug.Assert(Dynamics != null);
-            Debug.Assert(Actions != null);
             Debug.Assert(SimulatorManager.Instance != null);
 
             Controls = SimulatorManager.Instance.controls;
@@ -140,31 +139,49 @@ namespace Simulator.Sensors
 
         private void HeadLightsPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.IncrementHeadLightState();
         }
 
         private void IndicatorLeftPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.LeftTurnSignal = !Actions.LeftTurnSignal;
         }
 
         private void IndicatorRightPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.RightTurnSignal = !Actions.RightTurnSignal;
         }
 
         private void IndicatorHazardPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.HazardLights = !Actions.HazardLights;
         }
 
         private void FogLightsPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.FogLights = !Actions.FogLights;
         }
 
         private void InteriorLightPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            if (Actions == null)
+                return;
+
             Actions.InteriorLight = !Actions.InteriorLight;
         }
 
