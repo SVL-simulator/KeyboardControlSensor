@@ -179,11 +179,9 @@ namespace Simulator.Sensors
         {
             if (Controller.Active)
             {
-                SteerInput = Mathf.MoveTowards(SteerInput, Input.x, Time.deltaTime);
-                SteerInput *= InvertSteer ? -1 : 1;
+                SteerInput = Mathf.MoveTowards(SteerInput, InvertSteer ? Input.x * - 1 : Input.x * 1, Time.deltaTime);
                 MaxSteer = Mathf.Max(Mathf.Abs(SteerInput), MaxSteer);
-                AccelInput = Input.y;
-                AccelInput *= InvertAccel ? -1 : 1;
+                AccelInput = InvertAccel ? Input.y * - 1 : Input.y * 1;
                 MaxAccel = Mathf.Max(Mathf.Abs(AccelInput), MaxAccel);
                 MaxBrake = Mathf.Min(AccelInput, MaxBrake);
             }
