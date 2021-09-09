@@ -20,7 +20,7 @@ namespace Simulator.Sensors
         public float AccelInput { get; private set; } = 0f;
         public float BrakeInput { get; private set; } = 0f;
 
-        private SimulatorControls Controls;
+        private KeyboardControlInputs Controls;
         private IVehicleDynamics Dynamics;
         private VehicleActions Actions;
         private Vector2 Input = Vector2.zero;
@@ -47,7 +47,8 @@ namespace Simulator.Sensors
             Debug.Assert(Dynamics != null);
             Debug.Assert(SimulatorManager.Instance != null);
 
-            Controls = SimulatorManager.Instance.controls;
+            Controls = new KeyboardControlInputs();
+
             Controls.VehicleKeyboard.Direction.started += DirectionStarted;
             Controls.VehicleKeyboard.Direction.performed += DirectionPerformed;
             Controls.VehicleKeyboard.Direction.canceled += DirectionCanceled;
@@ -61,38 +62,34 @@ namespace Simulator.Sensors
             Controls.VehicleKeyboard.IndicatorHazard.performed += IndicatorHazardPerformed;
             Controls.VehicleKeyboard.FogLights.performed += FogLightsPerformed;
             Controls.VehicleKeyboard.InteriorLight.performed += InteriorLightPerformed;
-        }
 
+            Controls.Enable();
+        }
+                
         protected override void Deinitialize()
         {
-            Controls.VehicleKeyboard.Direction.started -= DirectionStarted;
-            Controls.VehicleKeyboard.Direction.performed -= DirectionPerformed;
-            Controls.VehicleKeyboard.Direction.canceled -= DirectionCanceled;
-            Controls.VehicleKeyboard.ShiftFirst.performed -= ShiftFirstPerformed;
-            Controls.VehicleKeyboard.ShiftReverse.performed -= ShiftReversePerformed;
-            Controls.VehicleKeyboard.ParkingBrake.performed -= ParkingBrakePerformed;
-            Controls.VehicleKeyboard.Ignition.performed -= IgnitionPerformed;
-            Controls.VehicleKeyboard.HeadLights.performed -= HeadLightsPerformed;
-            Controls.VehicleKeyboard.IndicatorLeft.performed -= IndicatorLeftPerformed;
-            Controls.VehicleKeyboard.IndicatorRight.performed -= IndicatorRightPerformed;
-            Controls.VehicleKeyboard.IndicatorHazard.performed -= IndicatorHazardPerformed;
-            Controls.VehicleKeyboard.FogLights.performed -= FogLightsPerformed;
-            Controls.VehicleKeyboard.InteriorLight.performed -= InteriorLightPerformed;
-        }
+            if (Controls != null)
+            {
+                Controls.Disable();
+                Controls.Dispose();
 
+                Controls = null;
+            }
+        }
+       
         private void DirectionStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            Input = obj.ReadValue<Vector2>();
+            Input = obj.ReadValue<Vector2>();            
         }
 
         private void DirectionPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            Input = obj.ReadValue<Vector2>();
+            Input = obj.ReadValue<Vector2>();            
         }
 
         private void DirectionCanceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            Input = Vector2.zero;
+            Input = Vector2.zero;            
         }
 
         private void ShiftFirstPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

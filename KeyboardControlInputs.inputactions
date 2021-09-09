@@ -1,0 +1,267 @@
+{
+    "name": "KeyboardControlInputs",
+    "maps": [
+        {
+            "name": "VehicleKeyboard",
+            "id": "a7c84f6e-a555-4bc5-905a-357e97a77b4c",
+            "actions": [
+                {
+                    "name": "Direction",
+                    "type": "Value",
+                    "id": "a4c84d4e-ab73-4109-b6d3-87cef0688a48",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "HeadLights",
+                    "type": "Button",
+                    "id": "2da8992e-466b-42bd-9300-0854e7aba0df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "IndicatorLeft",
+                    "type": "Button",
+                    "id": "be797ba1-c73a-41a4-ac0a-7269a1f21865",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "IndicatorRight",
+                    "type": "Button",
+                    "id": "456e0d9b-1590-495a-a810-22068dde68ad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "IndicatorHazard",
+                    "type": "Button",
+                    "id": "949c9a20-2be9-4a66-99b8-fb9c720a3c89",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "FogLights",
+                    "type": "Button",
+                    "id": "6ebbb86e-7e78-4e78-8238-8f12e931443d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ShiftFirst",
+                    "type": "Button",
+                    "id": "e216bb61-1dbf-4936-8963-26a8cb3d4fde",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ShiftReverse",
+                    "type": "Button",
+                    "id": "e5606c54-98ab-4c0a-95ba-47e452129b1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ParkingBrake",
+                    "type": "Button",
+                    "id": "11cc056b-8dec-44d6-a5af-c41873912c49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Ignition",
+                    "type": "Button",
+                    "id": "546e7144-7b87-4a19-b456-b3edf510c512",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "InteriorLight",
+                    "type": "Button",
+                    "id": "ee3edbee-7490-48da-91aa-1426cbb4e154",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Keyboard",
+                    "id": "4a3944ef-8c2c-447c-bc20-2765dd295ca9",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "dec83688-608f-4659-ab71-6f83cf44a947",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Hold,Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8c7b7735-c16e-4c0c-827a-18e37bb9d7c6",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "Hold,Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "af310a91-e63e-475e-94a0-d754a765b3d8",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Hold,Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "aa75c26c-86ae-46cc-89b0-2d7eb13035e2",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Hold,Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4e90a450-ce78-4ddb-8e50-c199db820746",
+                    "path": "<Keyboard>/#(H)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeadLights",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "975ef4d1-cdbe-4cc3-81c4-512cd70c11fa",
+                    "path": "<Keyboard>/#(,)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IndicatorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40b6b649-1dae-456c-b067-630619715b18",
+                    "path": "<Keyboard>/#(.)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IndicatorRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7946afeb-995e-4933-b7bf-5fe4ea1df09f",
+                    "path": "<Keyboard>/#(M)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IndicatorHazard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43be803b-bfc1-425e-837e-bc0b586d82dd",
+                    "path": "<Keyboard>/#(F)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FogLights",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e6f878e-765f-4ca8-84b8-ecab778a16ae",
+                    "path": "<Keyboard>/pageUp",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftFirst",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0bc2ba47-4a58-4cad-97d2-228ab460619f",
+                    "path": "<Keyboard>/pageDown",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftReverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec8cc402-0c57-4804-9c5a-38663a225ea2",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ParkingBrake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "133d24b4-434c-42f3-993e-d4c5456e7ca4",
+                    "path": "<Keyboard>/end",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ignition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2d4dbb8-8282-444f-8af1-c8405b87e322",
+                    "path": "<Keyboard>/#(I)",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteriorLight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
